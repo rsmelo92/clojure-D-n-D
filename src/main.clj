@@ -28,9 +28,18 @@
   (println (str "You are a " playerRaceName " " playerClassName))
   (helpers/pauseGame)
   
-  (def playerClassDetails (helpers/getRequest (get playerClass :url)))
-  
-  (def equipmentUrl (get-in playerClassDetails [:starting_equipment :url]))
-  (def equipmentOptions (get (helpers/getRequest equipmentUrl) :starting_equipment_options))
-  (println equipmentOptions)
+  (println "All you have is a Longsword ")
+  (helpers/pauseGame)
+
+  (println "A wild goblin appears!!")
+  (helpers/pauseGame)
+
+  (println "Do you wanna slay it? y/n ")
+
+  (def answer (read-line))
+  (case answer 
+      "y" (println "Goblin Slayed - Mission acomplished")
+      "n" (println "The goblin runs away - Mission failed...")
+      (println "You got confused and slayed yourself - You are dead"))
+  (println "=== GAME OVER ===")
 )
