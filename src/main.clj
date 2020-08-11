@@ -2,14 +2,27 @@
   (:require [helpers :as helpers])
 )
 
+(defn fetchRace 
+  "Fetch player race"
+  []
+  (def races (get (helpers/getRequest "/api/races") :results))
+  (def playerRace (rand-nth races))
+  (get playerRace :name)
+)
+
+(defn fetchClass
+  "Fetch player class"
+  []
+  (def classes (get (helpers/getRequest "/api/classes") :results))
+  (def playerClass (rand-nth classes))
+  (get playerClass :name)
+)
+
 (defn -main 
   "Main method"
   []
   (println "Welcome to Globlin Slayer")
-
-  (def races (get (helpers/getRequest "/api/races") :results))
-  (def playerRace (rand-nth races))
-  (def playerRaceName (get playerRace :name))
+  (def playerRaceName (fetchRace))
 
   (println (str "You are a " playerRaceName))
 
@@ -20,9 +33,7 @@
   (println (str "-" (get playerRaceDetails :size_description)))
   (helpers/pauseGame)
 
-  (def classes (get (helpers/getRequest "/api/classes") :results))
-  (def playerClass (rand-nth classes))
-  (def playerClassName (get playerClass :name))
+  (def playerClassName (fetchClass))
 
   (println (str "Your class is " playerClassName))
   (println (str "You are a " playerRaceName " " playerClassName))
